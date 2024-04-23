@@ -16,11 +16,17 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v4
+
+    - name: Configure rustc version
+      run: |
+        RUSTC_VERSION=$(grep channel rust-toolchain.toml | tail -n1 | tr -d " " | cut -f2 -d'"')
+        echo "RUSTC_VERSION=$RUSTC_VERSION" >> "$GITHUB_ENV"
+
     - name: Rust Setup
       uses: actions-rs/toolchain@v1
       with:
         profile: minimal
-        toolchain: nightly-2023-05-23
+        toolchain:  ${{ env.RUSTC_VERSION }}
         target: wasm32-unknown-unknown
         override: true
     - name: Install protoc
@@ -35,11 +41,17 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v4
+
+    - name: Configure rustc version
+      run: |
+        RUSTC_VERSION=$(grep channel rust-toolchain.toml | tail -n1 | tr -d " " | cut -f2 -d'"')
+        echo "RUSTC_VERSION=$RUSTC_VERSION" >> "$GITHUB_ENV"
+
     - name: Rust Setup
       uses: actions-rs/toolchain@v1
       with:
         profile: minimal
-        toolchain: nightly-2023-05-23
+        toolchain:  ${{ env.RUSTC_VERSION }}
         target: wasm32-unknown-unknown
         override: true
     - name: Install protoc
@@ -68,11 +80,17 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v4
+
+    - name: Configure rustc version
+      run: |
+        RUSTC_VERSION=$(grep channel rust-toolchain.toml | tail -n1 | tr -d " " | cut -f2 -d'"')
+        echo "RUSTC_VERSION=$RUSTC_VERSION" >> "$GITHUB_ENV"
+
     - name: Rust Setup
       uses: actions-rs/toolchain@v1
       with:
         profile: minimal
-        toolchain: nightly-2023-05-23
+        toolchain:  ${{ env.RUSTC_VERSION }}
         target: wasm32-unknown-unknown
         override: true
         components: rustfmt, clippy
