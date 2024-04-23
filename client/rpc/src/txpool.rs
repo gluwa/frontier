@@ -16,7 +16,7 @@
 // You should have received a copy of the GNU General Public License
 // along with this program. If not, see <https://www.gnu.org/licenses/>.
 
-use std::{collections::HashMap, marker::PhantomData, sync::Arc};
+use std::{marker::PhantomData, sync::Arc};
 
 use ethereum::TransactionV2;
 use ethereum_types::{H160, H256, U256};
@@ -86,7 +86,7 @@ where
 			};
 			pending
 				.entry(from_address)
-				.or_insert_with(HashMap::new)
+				.or_default()
 				.insert(nonce, T::get(hash, from_address, txn));
 		}
 		let mut queued = TransactionMap::<T>::new();
@@ -103,7 +103,7 @@ where
 			};
 			queued
 				.entry(from_address)
-				.or_insert_with(HashMap::new)
+				.or_default()
 				.insert(nonce, T::get(hash, from_address, txn));
 		}
 		Ok(TxPoolResult { pending, queued })
