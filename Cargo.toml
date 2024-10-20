@@ -133,6 +133,7 @@ pallet-aura = { version = "4.0.0-dev", git = "https://github.com/gluwa/polkadot-
 pallet-balances = { version = "4.0.0-dev", git = "https://github.com/gluwa/polkadot-sdk", branch = "release-polkadot-v1.1.0-patch-fees", default-features = false }
 pallet-grandpa = { version = "4.0.0-dev", git = "https://github.com/gluwa/polkadot-sdk", branch = "release-polkadot-v1.1.0-patch-fees", default-features = false }
 pallet-sudo = { version = "4.0.0-dev", git = "https://github.com/gluwa/polkadot-sdk", branch = "release-polkadot-v1.1.0-patch-fees", default-features = false }
+pallet-staking = { version = "4.0.0-dev", git = "https://github.com/gluwa/polkadot-sdk", branch = "release-polkadot-v1.1.0-patch-fees", default-features = false }
 pallet-timestamp = { version = "4.0.0-dev", git = "https://github.com/gluwa/polkadot-sdk", branch = "release-polkadot-v1.1.0-patch-fees", default-features = false }
 pallet-transaction-payment = { version = "4.0.0-dev", git = "https://github.com/gluwa/polkadot-sdk", branch = "release-polkadot-v1.1.0-patch-fees", default-features = false }
 pallet-transaction-payment-rpc = { version = "4.0.0-dev", git = "https://github.com/gluwa/polkadot-sdk", branch = "release-polkadot-v1.1.0-patch-fees" }
