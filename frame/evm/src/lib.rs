@@ -507,6 +507,10 @@ pub mod pallet {
 				TransactionValidationError::GasPriceTooLow => Error::<T>::GasPriceTooLow,
 				TransactionValidationError::PriorityFeeTooHigh => Error::<T>::GasPriceTooLow,
 				TransactionValidationError::InvalidFeeInput => Error::<T>::GasPriceTooLow,
+				TransactionValidationError::InvalidChainId => panic!("+++ DEBUG: InvalidChainId"),
+				TransactionValidationError::InvalidSignature => {
+					panic!("+++ DEBUG: InvalidSignature")
+				}
 				_ => Error::<T>::Undefined,
 			}
 		}
