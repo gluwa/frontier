@@ -676,7 +676,7 @@ impl<T: Config> Pallet<T> {
 		};
 
 		Pending::<T>::append((transaction, status, receipt));
-
+                log::info!("**** FRONTIER, apply_validated_transaction: before ethereum.Executed event");
 		Self::deposit_event(Event::Executed {
 			from: source,
 			to: dest.unwrap_or_default(),
@@ -985,6 +985,7 @@ pub struct InvalidTransactionWrapper(InvalidTransaction);
 
 impl From<TransactionValidationError> for InvalidTransactionWrapper {
 	fn from(validation_error: TransactionValidationError) -> Self {
+	        log::info!("*** FRONTIER, ethereum, validation_error={:?}", validation_error);
 		match validation_error {
 			TransactionValidationError::GasLimitTooLow => InvalidTransactionWrapper(
 				InvalidTransaction::Custom(TransactionValidationError::GasLimitTooLow as u8),

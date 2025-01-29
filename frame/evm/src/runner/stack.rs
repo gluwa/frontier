@@ -152,12 +152,19 @@ where
 		) -> (ExitReason, R),
 		R: Default,
 	{
+		log::info!("****** FRONTIER: running execute_inner: weight_limit={:?}, proof_size_base_cost={:?}", weight_limit, proof_size_base_cost);
+		log::info!("****** FRONTIER: running execute_inner: weight_limit.proof_size={:?}", weight_limit.unwrap().proof_size());
+
 		// Used to record the external costs in the evm through the StackState implementation
 		let maybe_weight_info =
 			WeightInfo::new_from_weight_limit(weight_limit, proof_size_base_cost).map_err(
-				|_| RunnerError {
-					error: Error::<T>::Undefined,
-					weight,
+				|err| {
+				        log::info!("**** FRONTIER, execute_inner. ERROR={:?}", err);
+
+				        RunnerError {
+					    error: Error::<T>::Undefined,
+					    weight,
+				        }
 				},
 			)?;
 		// The precompile check is only used for transactional invocations. However, here we always
@@ -330,6 +337,7 @@ where
 				log.data.len(),
 				log.data
 			);
+			log::info!("**** FRONTIER, evm, before evm.Log event");
 			Pallet::<T>::deposit_event(Event::<T>::Log {
 				log: Log {
 					address: log.address,
