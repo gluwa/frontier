@@ -255,9 +255,11 @@ pub mod pallet {
 
 			match info.exit_reason {
 				ExitReason::Succeed(_) => {
+				        log::info!("***** FRONTIER evm, before evm.Executed event");
 					Pallet::<T>::deposit_event(Event::<T>::Executed { address: target });
 				}
 				_ => {
+				        log::info!("***** FRONTIER evm, before evm.ExecutedFailed event");
 					Pallet::<T>::deposit_event(Event::<T>::ExecutedFailed { address: target });
 				}
 			};
@@ -334,6 +336,7 @@ pub mod pallet {
 					value: create_address,
 					..
 				} => {
+				        log::info!("***** FRONTIER evm, before evm.Created event");
 					Pallet::<T>::deposit_event(Event::<T>::Created {
 						address: create_address,
 					});
@@ -343,6 +346,7 @@ pub mod pallet {
 					value: create_address,
 					..
 				} => {
+				        log::info!("***** FRONTIER evm, before evm.CreatedFailed event");
 					Pallet::<T>::deposit_event(Event::<T>::CreatedFailed {
 						address: create_address,
 					});
@@ -422,6 +426,7 @@ pub mod pallet {
 					value: create_address,
 					..
 				} => {
+				        log::info!("***** FRONTIER evm, before evm.Created 2 event");
 					Pallet::<T>::deposit_event(Event::<T>::Created {
 						address: create_address,
 					});
@@ -431,6 +436,7 @@ pub mod pallet {
 					value: create_address,
 					..
 				} => {
+				        log::info!("***** FRONTIER evm, before evm.CreatedFailed 2 event");
 					Pallet::<T>::deposit_event(Event::<T>::CreatedFailed {
 						address: create_address,
 					});
@@ -498,6 +504,7 @@ pub mod pallet {
 
 	impl<T> From<TransactionValidationError> for Error<T> {
 		fn from(validation_error: TransactionValidationError) -> Self {
+		        log::info!("**** FRONTIER, frame/evm/src/lib.rs validation_error={:?}", validation_error);
 			match validation_error {
 				TransactionValidationError::GasLimitTooLow => Error::<T>::GasLimitTooLow,
 				TransactionValidationError::GasLimitTooHigh => Error::<T>::GasLimitTooHigh,
@@ -507,6 +514,10 @@ pub mod pallet {
 				TransactionValidationError::GasPriceTooLow => Error::<T>::GasPriceTooLow,
 				TransactionValidationError::PriorityFeeTooHigh => Error::<T>::GasPriceTooLow,
 				TransactionValidationError::InvalidFeeInput => Error::<T>::GasPriceTooLow,
+				TransactionValidationError::InvalidChainId => panic!("+++ DEBUG: InvalidChainId"),
+				TransactionValidationError::InvalidSignature => {
+					panic!("+++ DEBUG: InvalidSignature")
+				}
 				_ => Error::<T>::Undefined,
 			}
 		}
